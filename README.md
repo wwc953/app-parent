@@ -8,7 +8,8 @@ Maven|3.3.9|√
 Spring Boot|2.2.8.RELEASE|√
 Spring Cloud|Hoxton.RELEASE|√
 Spring Cloud Alibaba|2.2.0.RELEASE|×
-
+mybatis-spring-boot|2.1.3|√
+mybatis-generator-maven-plugin|1.3.2|√
 
 ### 模块说明：
 
