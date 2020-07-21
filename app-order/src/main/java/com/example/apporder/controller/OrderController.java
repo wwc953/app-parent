@@ -2,11 +2,11 @@ package com.example.apporder.controller;
 
 import com.example.apporder.model.Order;
 import com.example.apporder.service.OrderServiceimpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 public class OrderController {
 
@@ -20,7 +20,14 @@ public class OrderController {
 
     @GetMapping("/getOrder/{id}")
     public Order getOrder(@PathVariable Integer id){
+        log.info("order id = {}", id);
         return orderServiceimpl.getOrderId(id);
+    }
+
+    @PostMapping("/insert")
+    public Integer insertOrder(@RequestBody Order order){
+        Integer insertOrder = orderServiceimpl.insertOrder(order);
+        return insertOrder;
     }
 
 }
