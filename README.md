@@ -1,8 +1,10 @@
 # app-parent
 ### 项目版本：
 
-组件|版本|是否支持
+组件|版本|说明
 :---:|:---:|:---:
+Java|1.8|√
+Maven|3.3.9|√
 Spring Boot|2.2.8.RELEASE|√
 Spring Cloud|Hoxton.RELEASE|√
 Spring Cloud Alibaba|2.2.0.RELEASE|×
