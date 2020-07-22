@@ -3,6 +3,7 @@ package com.example.appuser.controller;
 import com.example.appuser.model.User;
 import com.example.appuser.remote.IOrderServiceFeign;
 import com.example.appuser.service.UserServiceImpl;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class UserController {
         return "local user";
     }
 
+    @ApiOperation(value = "feign远程服务调用order",notes = "remote call test")
     @GetMapping("/user/{param}")
     public String callOrder(@PathVariable  String param){
         return orderServiceFeign.callOrder(param);
