@@ -20,6 +20,7 @@
         <module>app-user</module>
         <module>app-order</module>
         <module>app-eureka-server</module>
+        <module>app-zuul</module>
     </modules>
 
     <properties>
@@ -28,7 +29,6 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
-<!--        <app.parent.version>1.0-SNAPSHOT</app.parent.version>-->
         <lombok.version>1.16.18</lombok.version>
     </properties>
 

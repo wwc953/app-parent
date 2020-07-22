@@ -11,5 +11,4 @@ public interface IOrderServiceFeign {
     @GetMapping("/order/{param}")
     public String callOrder(@PathVariable(value = "param") String param);
 
-
 }
