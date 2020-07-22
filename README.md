@@ -11,7 +11,7 @@ Spring Cloud Alibaba|2.2.0.RELEASE|×
 mybatis-spring-boot|2.1.3|√
 mybatis-generator-maven-plugin|1.3.2|√
 lombok|1.16.18|√
-Zuul|2.2.0.RELEASE|√
+Zuul|1.3.1|√
 
 ### 模块说明：
 
