@@ -1,9 +1,7 @@
 package com.example.appuser.dao;
 
 import com.example.appuser.model.User;
-import org.apache.ibatis.annotations.Mapper;
 
-//@Mapper
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
