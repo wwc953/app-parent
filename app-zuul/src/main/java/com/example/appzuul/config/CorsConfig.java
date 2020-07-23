@@ -11,7 +11,7 @@ import org.springframework.web.filter.CorsFilter;
  */
 //如果使用网关服务调用微服务，则注释掉Configuration注解；
 // 如果不使用网关服务，则需将Configuration注解的注释放开
-@Configuration
+//@Configuration
 public class CorsConfig {
 
     private CorsConfiguration buildConfig() {
@@ -25,7 +25,7 @@ public class CorsConfig {
         return corsConfiguration;
     }
 
-    @Bean
+//    @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", buildConfig());

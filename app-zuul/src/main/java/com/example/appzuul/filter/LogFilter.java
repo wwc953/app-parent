@@ -25,7 +25,7 @@ public class LogFilter extends ZuulFilter {
     }
 
     /**
-     * 指定过滤器的执行顺序
+     *  filter执行顺序，通过数字指定 ,优先级为0，数字越大，优先级越低
      * @return
      */
     @Override
