@@ -13,6 +13,8 @@ mybatis-generator-maven-plugin|1.3.2|√
 lombok|1.16.18|√
 Zuul|1.3.1|√
 Swagger2|2.9.2|√
+Nacos|1.1.4|√
+Spring Cloud Gateway|2.2.0|√
 
 ### 模块说明：
 

@@ -1,0 +1,24 @@
+server:
+  port: 7070
+spring:
+  application:
+    name: app-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: app-user-id #自定义的路由 ID，保持唯一
+          uri: http://www.ityouknow.com #目标服务地址
+#          uri: lb://app-user   # lb://是指当前注册中心下  后面的是微服务的名字
+          predicates: #路由条件
+            - Path=/GUSER/**
+#        - id: app-order-id
+#          uri: lb://app-order
+#          predicates:
+#            - Path=/GORDER/**
+    nacos:
+      server-addr: localhost:8848
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:7000/eureka/
