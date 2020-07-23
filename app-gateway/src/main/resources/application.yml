@@ -5,16 +5,24 @@ spring:
     name: app-gateway
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowCredentials: true
+            allowed-origins: "*"
+            allowed-headers: "*"
+            allowed-methods: "*"
+            max-age: 3600
       routes:
-        - id: app-user-id #自定义的路由 ID，保持唯一
+        - id: app-user-8000 #自定义的路由 ID，保持唯一
           uri: http://www.ityouknow.com #目标服务地址
 #          uri: lb://app-user   # lb://是指当前注册中心下  后面的是微服务的名字
           predicates: #路由条件
             - Path=/GUSER/**
-#        - id: app-order-id
-#          uri: lb://app-order
-#          predicates:
-#            - Path=/GORDER/**
+        - id: app-order-9000
+          uri: lb://app-order
+          predicates:
+            - Path=/GORDER/**
     nacos:
       server-addr: localhost:8848
 
@@ -22,3 +30,6 @@ spring:
 #  client:
 #    service-url:
 #      defaultZone: http://localhost:7000/eureka/
+#logging:
+#  level:
+#    root: debug
