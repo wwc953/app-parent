@@ -21,12 +21,12 @@ public class RedisSlidingWindowRatelimit {
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
-    private boolean isprint = true;
+    private boolean isprint = false;
 
     /**
-     * @param key key
-     * @param millisecond 毫秒数
-     * @param limitCount  限流次数
+     * @param key         key
+     * @param millisecond 窗口(单位时间)
+     * @param limitCount  次数
      */
     public boolean redisRatelimit(String key, Long millisecond, Integer limitCount) {
         //TODO 是否需要分布式锁?
@@ -42,12 +42,12 @@ public class RedisSlidingWindowRatelimit {
             stringRedisTemplate.opsForList().leftPush(key, System.currentTimeMillis() + "");
             return true;
         } else {
-            Long lastTime = Long.parseLong(stringRedisTemplate.opsForList().index(key, -1));
-            long nowTime = System.currentTimeMillis();
-            log.info("当前时间：{}，最后一次时间：{},差值：{}", nowTime, lastTime, nowTime - lastTime);
-            if (nowTime - lastTime >= millisecond) {
-                stringRedisTemplate.opsForList().leftPush(key, nowTime + "");
-                stringRedisTemplate.opsForList().trim(key, 0, limitCount-1);
+            Long endListTime = Long.parseLong(stringRedisTemplate.opsForList().index(key, -1));
+            long currentTime = System.currentTimeMillis();
+            log.info("currentTime：{}，endListTime：{},差值：{}", currentTime, endListTime, currentTime - endListTime);
+            if (currentTime - endListTime >= millisecond) {
+                stringRedisTemplate.opsForList().leftPush(key, currentTime + "");
+                stringRedisTemplate.opsForList().trim(key, 0, limitCount - 1);
                 printList(key);
                 return true;
             }
@@ -56,11 +56,11 @@ public class RedisSlidingWindowRatelimit {
         return false;
     }
 
-    private void printList(String key){
-        if(!isprint){
+    private void printList(String key) {
+        if (!isprint) {
             return;
         }
         List<String> range = stringRedisTemplate.opsForList().range(key, 0, -1);
-        System.out.println(range);
+        log.info("{}", range);
     }
 }
