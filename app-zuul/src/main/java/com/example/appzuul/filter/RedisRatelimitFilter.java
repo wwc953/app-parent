@@ -48,8 +48,9 @@ public class RedisRatelimitFilter extends ZuulFilter {
 
         boolean redisRatelimit = redisSlidingWindowRatelimit.redisRatelimit(remoteAddr, 2000L, 5);
 
-        if (!redisRatelimit){
-            throw new RuntimeException("已被限制！！！！请稍后重试");
+        if (!redisRatelimit) {
+            // {1}:控制台打印msg     {2}:错误码     {3}:前台msg
+            throw new ZuulException("后台msg: 请求过多...", 500, "前台msg: 已被限制, 请稍后重试...");
         }
         return null;
     }
