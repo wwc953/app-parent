@@ -46,11 +46,14 @@ public class RedisRatelimitFilter extends ZuulFilter {
 
         String remoteAddr = request.getRemoteAddr();
 
-        boolean redisRatelimit = redisSlidingWindowRatelimit.redisRatelimit(remoteAddr, 2000L, 5);
+        boolean redisRatelimit = redisSlidingWindowRatelimit.redisRatelimit(remoteAddr, 10000L, 3);
 
         if (!redisRatelimit) {
             // {1}:控制台打印msg     {2}:错误码     {3}:前台msg
             throw new ZuulException("后台msg: 请求过多...", 500, "前台msg: 已被限制, 请稍后重试...");
+//            currentContext.setSendZuulResponse(false);
+//            currentContext.setResponseBody("please wait ...");
+//            currentContext.setResponseStatusCode(401);
         }
         return null;
     }
