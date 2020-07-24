@@ -14,10 +14,10 @@ spring:
             allowed-methods: "*"
             max-age: 3600
       routes:
-        - id: app-user-8000 #×Ô¶¨ÒåµÄÂ·ÓÉ ID£¬±£³ÖÎ¨Ò»
-          uri: http://www.ityouknow.com #Ä¿±ê·şÎñµØÖ·
-#          uri: lb://app-user   # lb://ÊÇÖ¸µ±Ç°×¢²áÖĞĞÄÏÂ  ºóÃæµÄÊÇÎ¢·şÎñµÄÃû×Ö
-          predicates: #Â·ÓÉÌõ¼ş
+        - id: app-user-8000 #è‡ªå®šä¹‰è·¯ç”±åç§°
+          uri: http://www.ityouknow.com
+#          uri: lb://app-user   # uriä»¥lb://å¼€å¤´ï¼ˆlbä»£è¡¨ä»æ³¨å†Œä¸­å¿ƒè·å–æœåŠ¡ï¼‰ï¼Œåé¢æ¥çš„å°±æ˜¯ä½ éœ€è¦è½¬å‘åˆ°çš„æœåŠ¡åç§°
+          predicates: #è½¬å‘è·¯å¾„è§„åˆ™
             - Path=/GUSER/**
         - id: app-order-9000
           uri: lb://app-order
