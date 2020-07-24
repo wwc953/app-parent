@@ -15,15 +15,17 @@ Zuul|1.3.1|√
 Swagger2|2.9.2|√
 Nacos|1.1.4|√
 Spring Cloud Gateway|2.2.0|√
+Redis|2.x.x|限流
 
 ### 模块说明：
 
 模块|说明|
 :---:|:---:
 app-eureka-server|Eureka注册中心
-app-zuul|网关微服务
+app-zuul|网关微服务 + 自定义Filter + Redis滑动窗口限流
 app-user|用户微服务
 app-order|订单微服务
+app-gateway|gateway网关
 
 
 ### swagger2访问地址：
