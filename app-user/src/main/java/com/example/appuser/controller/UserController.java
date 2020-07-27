@@ -37,4 +37,9 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @GetMapping("/cOrder/{id}")
+    public String getOrder(@PathVariable(value = "id") Integer id){
+        return orderServiceFeign.getOrderFromOrder(id);
+    }
+
 }

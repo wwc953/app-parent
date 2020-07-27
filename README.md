@@ -16,6 +16,7 @@ Swagger2|2.9.2|√
 Nacos|1.1.4|√
 Spring Cloud Gateway|2.2.0|√
 Redis|2.x.x|限流
+Zipkin|xxx|链路追踪
 
 ### 模块说明：
 
@@ -26,9 +27,13 @@ app-zuul|网关微服务 + 自定义Filter + Redis滑动窗口限流
 app-user|用户微服务
 app-order|订单微服务
 app-gateway|gateway网关
+zipkin-server-2.21.5-exec.jar|zipkin服务端,单独启动
 
 
-### swagger2访问地址：
-http://ip:port/swagger-ui.html
+### swagger2 url：
+http://${ip}:{port}/swagger-ui.html
+
+### zipkin url
+http://${ip}:9411
 
 

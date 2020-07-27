@@ -7,4 +7,9 @@ public class OrderServiceFeignImpl implements IOrderServiceFeign {
     public String callOrder(String param) {
         return "远程调用失败！！！";
     }
+
+    @Override
+    public String getOrderFromOrder(Integer id) {
+        return "远程调用失败！！！";
+    }
 }
