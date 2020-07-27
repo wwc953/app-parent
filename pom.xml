@@ -22,6 +22,7 @@
         <module>app-eureka-server</module>
         <module>app-zuul</module>
         <module>app-gateway</module>
+        <module>app-redis-cluster</module>
     </modules>
 
     <properties>
