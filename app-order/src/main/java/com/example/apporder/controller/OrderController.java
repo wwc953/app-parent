@@ -15,7 +15,7 @@ public class OrderController {
 
     @GetMapping("/order/{param}")
     public String callOrder(@PathVariable String param) {
-        log.info("------ 来自user ----");
+        log.info("------ user --> order ----");
         return "我来自：order" + param;
     }
 
