@@ -12,6 +12,7 @@ import redis.clients.jedis.JedisCluster;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -53,6 +54,7 @@ public class RedisCluterLock {
 
             while (System.currentTimeMillis() < end) {
                 String result = jedisCluster.set(preKey + key, value, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+
                 if (LOCK_SUCCESS.equals(result)) {
                     return true;
                 }
@@ -66,6 +68,16 @@ public class RedisCluterLock {
             log.error("acquire lock due to error", e);
         }
         return false;
+    }
+
+    public String lockByLua(String key,long expireTime){
+        String lockLua = ScriptUtil.getScript("lock.lua");
+        Object result = jedisCluster.eval(lockLua, Collections.singletonList(key),
+                    Collections.singletonList(expireTime + ""));
+        if(!"0".equals(result)){
+            return String.valueOf(result);
+        }
+        return "0";
     }
 
     public boolean unlock(String key, String value) {
