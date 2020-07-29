@@ -89,13 +89,13 @@ public class RedisCluterLock {
             result = jedisCluster.eval(script, Collections.singletonList(key),
                     Collections.singletonList(value));
             if (RELEASE_SUCCESS.equals(result)) {
-                log.info("release lock success, value:{}", value);
+//                log.info("release lock success, value:{}", value);
                 return true;
             }
         } catch (Exception e) {
             log.error("release lock due to error", e);
         }
-        log.info("release lock failed, value:{}, result:{}", value, result);
+//        log.info("release lock failed, value:{}, result:{}", value, result);
         return false;
     }
 
