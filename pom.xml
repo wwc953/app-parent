@@ -23,6 +23,7 @@
         <module>app-zuul</module>
         <module>app-gateway</module>
         <module>app-redis-cluster</module>
+        <module>app-zk-lock</module>
     </modules>
 
     <properties>
