@@ -26,7 +26,7 @@ local listSize = redis.call("llen", listKey);
 if (listSize < limitCount) then
     -- 当前时间放入队头
     redis.call("lpush", listKey, currentTime);
-    return true;
+    return "true";
 else
     -- 获取最后一个元素
     local lastIndexValue = redis.call("lindex", listKey, -1);
@@ -34,10 +34,17 @@ else
     if (tonumber(currentTime) - tonumber(lastIndexValue) >= cycleTime) then
         redis.call("lpush", listKey, currentTime);
         redis.call("rpop", listKey);
-        return true;
+        return "true";
     else
-        return false;
+        return "false";
     end
 end
 
 
+--？？？？？？
+--Lua脚本中的变量(动态数据)请使用KEYS和ARGV获取，如果把变量放在脚本中，
+-- 必然会导致每次的脚本内容都不同(SHA1)，Redis缓存大量无用或者一次性的脚本内容
+
+--redis.call()和redis.pcall()区别：
+--redis.call() 在执行命令的过程中发生错误时，脚本会停止执行，并返回一个脚本错误，错误的输出信息会说明错误造成的原因：
+--redis.pcall() 出错时并不引发(raise)错误，而是返回一个带 err 域的 Lua 表(table)，用于表示错误：

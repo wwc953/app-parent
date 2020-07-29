@@ -17,12 +17,14 @@ import java.util.concurrent.BlockingDeque;
 @Configuration
 public class RedisScriptConfig {
 
-    @Bean("slidingWindowRatelimit")
-    public RedisScript<Boolean> redisRatelimitLua(){
-        DefaultRedisScript<Boolean> defaultRedisScript = new DefaultRedisScript<>();
-        defaultRedisScript.setResultType(Boolean.class);
+    @Bean
+    //RedisScript<XXX> lua执行返回结果
+    public RedisScript<String> redisRatelimitLua(){
+        DefaultRedisScript<String> defaultRedisScript = new DefaultRedisScript<>();
+        defaultRedisScript.setResultType(String.class);
         defaultRedisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("slidingWindowRatelimit.lua")));
         return defaultRedisScript;
     }
+
 
 }
