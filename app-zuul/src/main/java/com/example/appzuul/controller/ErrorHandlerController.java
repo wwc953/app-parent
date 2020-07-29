@@ -1,7 +1,5 @@
 package com.example.appzuul.controller;
 
-import org.apache.commons.lang3.StringUtils;
-import org.bouncycastle.asn1.ocsp.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;

@@ -3,17 +3,11 @@ package com.example.apprediscluster.util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisClusterConnection;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 
-import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * @Description: Redis Cluter模式集群
