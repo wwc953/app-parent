@@ -3,6 +3,7 @@ package com.example.apprediscluster.util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisClusterConnection;
+import org.springframework.data.redis.connection.jedis.JedisClusterConnection;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.JedisCluster;
@@ -29,7 +30,9 @@ public class RedisCluterLock {
     /**
      * 分布式锁的键前缀
      */
-    private String preKey = "REDIS_LOCK_";
+//    private String preKey = "REDIS_LOCK_";
+    private String preKey = "";
+
 
     /**
      * 锁的超时时间 10s
@@ -64,11 +67,11 @@ public class RedisCluterLock {
         return false;
     }
 
-    public String lockByLua(String key,long expireTime){
+    public String lockByLua(String key, long expireTime) {
         String lockLua = ScriptUtil.getScript("lock.lua");
         Object result = jedisCluster.eval(lockLua, Collections.singletonList(key),
-                    Collections.singletonList(expireTime + ""));
-        if(!"0".equals(result)){
+                Collections.singletonList(expireTime + ""));
+        if (!"0".equals(result)) {
             return String.valueOf(result);
         }
         return "0";
@@ -96,13 +99,17 @@ public class RedisCluterLock {
         return false;
     }
 
-    @Autowired
-    private RedisTemplate redisTemplate;
 
-    public JedisCluster getJedisCluster(){
-        RedisClusterConnection clusterConnection = redisTemplate.getConnectionFactory().getClusterConnection();
-        JedisCluster jedisCluster = (JedisCluster)clusterConnection.getNativeConnection();
-        return jedisCluster;
-    }
+//    @Autowired
+//    private RedisTemplate redisTemplate;
+
+//    @Autowired
+//    JedisClusterConnection clusterConnection;
+
+//    public JedisCluster getJedisCluster(){
+//        RedisClusterConnection clusterConnection = redisTemplate.getConnectionFactory().getClusterConnection();
+//        JedisCluster jedisCluster = (JedisCluster)clusterConnection.getNativeConnection();
+//        return jedisCluster;
+//    }
 
 }
