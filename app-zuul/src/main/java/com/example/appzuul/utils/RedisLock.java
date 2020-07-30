@@ -16,8 +16,15 @@ public class RedisLock {
 
     private static final String LOCK_SUCCESS = "OK";
     private static final Long RELEASE_SUCCESS = 1L;
-    private static final String SET_IF_NOT_EXIST = "NX";
-    private static final String SET_WITH_EXPIRE_TIME = "PX";
+    private static final String SET_IF_NOT_EXIST = "NX";//setnx
+    /**
+     * 时间单位：ms
+     */
+    private static final String SET_WITH_EXPIRE_TIME = "PX"; //ms
+    /**
+     * 时间单位：s
+     */
+    private static final String SET_WITH_EXPIRE_TIME_SEC = "EX"; //s
 
     /**
      * redis 客户端
@@ -32,10 +39,11 @@ public class RedisLock {
     /**
      * 锁的超时时间 10s
      */
-    int expireTime = 10 * 1000;
+    int expireTime_ms = 10 * 1000;
+    int expireTime_s = 10;
 
     /**
-     * 锁等待，防止线程饥饿
+     * 锁等待，防止线程饥饿 ms
      */
     int acquireTimeout = 1 * 1000;
 
@@ -67,12 +75,12 @@ public class RedisLock {
      *
      * @param jedis          jedis Redis客户端
      * @param lockKey        锁的键值
-     * @param acquireTimeout 获取锁超时时间
-     * @param expireTime     锁失效时间
+     * @param acquireTimeout 获取锁超时时间ms
+     * @param expireTime_ms     锁失效时间ms
      */
-    public RedisLock(Jedis jedis, String lockKey, int acquireTimeout, int expireTime) {
+    public RedisLock(Jedis jedis, String lockKey, int acquireTimeout, int expireTime_ms) {
         this(jedis, lockKey, acquireTimeout);
-        this.expireTime = expireTime;
+        this.expireTime_ms = expireTime_ms;
     }
 
     public String lock() {
@@ -82,7 +90,7 @@ public class RedisLock {
             // 随机生成一个value
             String requireToken = UUID.randomUUID().toString();
             while (System.currentTimeMillis() < end) {
-                String result = jedis.set(lockKey, requireToken, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+                String result = jedis.set(lockKey, requireToken, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime_ms);
                 if (LOCK_SUCCESS.equals(result)) {
                     return requireToken;
                 }
@@ -130,46 +138,15 @@ public class RedisLock {
      * @param jedis
      * @param lockKey
      * @param requestId
-     * @param expireTime
+     * @param expireTime_s
      */
     @Deprecated
-    public static void wrongGetLock1(Jedis jedis, String lockKey, String requestId, int expireTime) {
+    public static void wrongGetLock1(Jedis jedis, String lockKey, String requestId, int expireTime_s) {
         Long result = jedis.setnx(lockKey, requestId);
         if (result == 1) {
             // 若在这里程序突然崩溃，则无法设置过期时间，将发生死锁
-            jedis.expire(lockKey, expireTime);
+            jedis.expire(lockKey, expireTime_s);
         }
-    }
-
-    /**
-     * 实现加锁的错误姿势2
-     *
-     * @param jedis
-     * @param lockKey
-     * @param expireTime
-     * @return
-     */
-    @Deprecated
-    public static boolean wrongGetLock2(Jedis jedis, String lockKey, int expireTime) {
-        long expires = System.currentTimeMillis() + expireTime;
-        String expiresStr = String.valueOf(expires);
-        // 如果当前锁不存在，返回加锁成功
-        if (jedis.setnx(lockKey, expiresStr) == 1) {
-            return true;
-        }
-
-        // 如果锁存在，获取锁的过期时间
-        String currentValueStr = jedis.get(lockKey);
-        if (currentValueStr != null && Long.parseLong(currentValueStr) < System.currentTimeMillis()) {
-            // 锁已过期，获取上一个锁的过期时间，并设置现在锁的过期时间
-            String oldValueStr = jedis.getSet(lockKey, expiresStr);
-            if (oldValueStr != null && oldValueStr.equals(currentValueStr)) {
-                // 考虑多线程并发的情况，只有一个线程的设置值和当前值相同，它才有权利加锁
-                return true;
-            }
-        }
-        // 其他情况，一律返回加锁失败
-        return false;
     }
 
     /**
