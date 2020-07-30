@@ -7,8 +7,6 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 
-import java.util.concurrent.BlockingDeque;
-
 /**
  * @Description: TODO
  * @author: wangwc

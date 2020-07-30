@@ -2,17 +2,10 @@ package com.example.appzuul.ratelimit;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
-import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-import redis.clients.jedis.Jedis;
 
-import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 
