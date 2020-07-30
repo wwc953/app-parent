@@ -82,17 +82,24 @@ public class RedisSlidingWindowRatelimit {
 
     /**
      * @param key         队列 Key
-     * @param millisecond 窗口时间(ms)
-     * @param limitCount  次数
-     * @param currentTime 当前时间(ms)
+     * @param millisecond 窗口时间(ms) 默认10000ms
+     * @param limitCount  次数 默认20
+     * @param currentTime 当前时间(ms) 默认当前时间
      * @return 0 队列已满(限流); 1 队列未满(未限流)
      */
     public boolean redisRatelimit4Lua(String key, Long millisecond, Integer limitCount, Long currentTime) {
 //        Jedis jedis = (Jedis) stringRedisTemplate.getConnectionFactory().getConnection().getNativeConnection();
 //        jedis.eval();
-        if (currentTime == null) {
+        if(millisecond == null || millisecond <= 0){
+            millisecond = 10000L;
+        }
+        if(limitCount == null || limitCount <= 0){
+            limitCount = 100;
+        }
+        if (currentTime == null || currentTime <= 0) {
             currentTime = System.currentTimeMillis();
         }
+
         String result = stringRedisTemplate.execute(redisRatelimitLua, Collections.singletonList(key),
                 millisecond + "", limitCount + "", currentTime + "");
 

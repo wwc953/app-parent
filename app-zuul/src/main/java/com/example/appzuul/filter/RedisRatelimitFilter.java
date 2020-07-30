@@ -48,7 +48,9 @@ public class RedisRatelimitFilter extends ZuulFilter {
 
 //        boolean redisRatelimit = redisSlidingWindowRatelimit.redisRatelimit(remoteAddr, 10000L, 3);
 
-        boolean redisRatelimit = redisSlidingWindowRatelimit.redisRatelimit4Lua("wwc",10*1000L,3,null);
+        boolean redisRatelimit = redisSlidingWindowRatelimit.redisRatelimit4Lua("wwc",10*1000L,10,null);
+
+//        boolean redisRatelimit = redisSlidingWindowRatelimit.redisRatelimit4Lua("wwc",null,null,null);
 
         if (!redisRatelimit) {
             // {1}:控制台打印msg     {2}:错误码     {3}:前台msg

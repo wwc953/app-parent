@@ -33,7 +33,9 @@ else
 
     if (tonumber(currentTime) - tonumber(lastIndexValue) >= cycleTime) then
         redis.call("lpush", listKey, currentTime);
-        redis.call("rpop", listKey);
+        -- 当limitCount由100变成10的时候，无法改变list的总长度
+        -- redis.call("rpop", listKey);
+        redis.call("ltrim", listKey, 0, limitCount - 1);
         return "true";
     else
         return "false";
