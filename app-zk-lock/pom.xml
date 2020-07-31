@@ -14,8 +14,18 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>app-zk-lock</name>
 
+    <properties>
+        <zkclient.version>0.10</zkclient.version>
+    </properties>
+
     <dependencies>
 
+        <!--zookeeper客户端-->
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>${zkclient.version}</version>
+        </dependency>
 
 
     </dependencies>
