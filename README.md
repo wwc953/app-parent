@@ -27,6 +27,9 @@ app-zuul|网关微服务 + 自定义Filter + Redis滑动窗口限流
 app-user|用户微服务
 app-order|订单微服务
 app-gateway|gateway网关
+app-docker|docker打包发布
+app-redis-cluster|redis分布式锁
+app-zk-lock|zk分布式锁
 zipkin-server-2.21.5-exec.jar|zipkin服务端(单独启动)
 
 

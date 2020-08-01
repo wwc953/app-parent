@@ -24,6 +24,7 @@
         <module>app-gateway</module>
         <module>app-redis-cluster</module>
         <module>app-zk-lock</module>
+        <module>app-docker</module>
     </modules>
 
     <properties>
