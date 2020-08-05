@@ -50,7 +50,9 @@ public class RedisSlidingWindowRatelimit {
             log.info("currentTime：{}，endListTime：{},差值：{}", currentTime, endListTime, currentTime - endListTime);
             if (currentTime - endListTime >= millisecond) {
                 stringRedisTemplate.opsForList().leftPush(key, currentTime + "");
-                stringRedisTemplate.opsForList().trim(key, 0, limitCount - 1);
+//                stringRedisTemplate.opsForList().trim(key, 0, limitCount - 1);
+                //list正向索引从0开始，负向索引从-1开始
+                stringRedisTemplate.opsForList().trim(key, 0, -2);
 //                stringRedisTemplate.opsForList().rightPop(key);
                 printList(key);
                 return true;
