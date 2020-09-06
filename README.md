@@ -96,3 +96,22 @@ zipkin-server-2.21.5-exec.jar|zipkin服务端(单独启动)
         java -jar zipkin-server-2.21.5-exec.jar --STORAGE_TYPE=mysql --MYSQL_JDBC_URL=jdbc:mysql://127.0.0.1:3306/zipkin?user=root^&password=123456^&characterEncoding=UTF-8
 
 
+### Redis Cluster 信息
+    M: 443d6f49d4d6a0dc3880aee312ccef0bd61467eb 0.0.0.0:7000
+       slots:[0-5460] (5461 slots) master
+       1 additional replica(s)
+    M: 11dfcafcff52b4cec0339d51f93fdc1fc60a82cb 127.0.0.1:7001
+       slots:[5461-10922] (5462 slots) master
+       1 additional replica(s)
+    M: e6d7fba652ebac3578326cbc7600d7db2df97f2b 127.0.0.1:7002
+       slots:[10923-16383] (5461 slots) master
+       1 additional replica(s)
+    S: 03cde8b7757af5b7ed72d50538bf720030204302 127.0.0.1:7004
+       slots: (0 slots) slave
+       replicates 443d6f49d4d6a0dc3880aee312ccef0bd61467eb
+    S: 387001d87672ae3524d62b2f74bcd7e7b25dcc86 127.0.0.1:7003
+       slots: (0 slots) slave
+       replicates e6d7fba652ebac3578326cbc7600d7db2df97f2b
+    S: 0c8de0777ce2eae4a70c72cc2d6d8e8f61f6986e 127.0.0.1:7005
+       slots: (0 slots) slave
+       replicates 11dfcafcff52b4cec0339d51f93fdc1fc60a82cb
