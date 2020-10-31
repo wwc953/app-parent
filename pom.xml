@@ -25,6 +25,7 @@
         <module>app-redis-cluster</module>
         <module>app-zk-lock</module>
         <module>app-docker</module>
+        <module>app-serialization</module>
     </modules>
 
     <properties>
