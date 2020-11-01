@@ -1,5 +1,6 @@
 package com.example.appzklock;
 
+import com.example.appzklock.util.ZookeeperDistrbuteLock;
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooKeeper;
@@ -17,8 +18,8 @@ public class ZkTest {
 //            System.out.println("---"+asdasd);
 //        }
 
-
-
+        ZookeeperDistrbuteLock zookeeperDistrbuteLock = new ZookeeperDistrbuteLock();
+        zookeeperDistrbuteLock.lock();
 
 
     }
