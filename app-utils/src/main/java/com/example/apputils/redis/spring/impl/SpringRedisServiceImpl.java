@@ -1,6 +1,8 @@
 package com.example.apputils.redis.spring.impl;
 
 import com.example.apputils.redis.api.IRedisService;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.InitializingBean;
@@ -12,6 +14,7 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
@@ -37,6 +40,12 @@ public class SpringRedisServiceImpl implements IRedisService, InitializingBean {
     private StringRedisTemplate stringTemplate;
 
     private ObjectMapper om = new ObjectMapper();
+
+    @PostConstruct
+    public void init() {
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+    }
 
     public SpringRedisServiceImpl() {
     }
