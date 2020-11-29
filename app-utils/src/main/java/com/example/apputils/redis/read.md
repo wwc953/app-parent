@@ -21,3 +21,12 @@
     private Object deserializeValue(byte[] bytes){
         return om.readValue(bytes,Object.class);
     }
+    
+### redis pipelined
+    RedisTemplate、Jedis 支持
+    this.template.executePipelined(new RedisCallback<Object>(){
+        //xxxx
+    });
+    
+    JedisCluster 需要自己根据key找到Jedis对象    
+    
