@@ -352,4 +352,8 @@ public class JedisClusterRedisServiceImpl implements IRedisService {
         }
         return map;
     }
+
+    public boolean isMember(Object key, Object member) {
+        return jedisCluster.sismember(rawValue(key), rawValue(member));
+    }
 }
