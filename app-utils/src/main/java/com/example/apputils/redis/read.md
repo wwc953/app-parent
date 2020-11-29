@@ -28,5 +28,6 @@
         //xxxx
     });
     
-    JedisCluster 需要自己根据key找到Jedis对象    
-    
+    JedisCluster 需要自己根据key找到Jedis对象
+        
+### 2.0 Redis数据都是已Byte[] 形式存放    
