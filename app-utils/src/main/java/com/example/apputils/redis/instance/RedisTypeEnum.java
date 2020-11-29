@@ -9,7 +9,7 @@ import java.util.List;
  * @date: 2020/11/27 15:50
  */
 public enum RedisTypeEnum {
-    JEDIS("jedis", "com.example.apputils.redis.spring.impl.JedisRedisServiceImpl"),
+    JEDIS("jedis", "com.example.apputils.redis.jedis.impl.JedisRedisServiceImpl"),
     SPRING("spring", "com.example.apputils.redis.spring.impl.SpringRedisServiceImpl");
 
     private String typeName;

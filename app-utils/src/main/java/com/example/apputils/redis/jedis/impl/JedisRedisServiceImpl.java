@@ -1,4 +1,4 @@
-package com.example.apputils.redis.spring.impl;
+package com.example.apputils.redis.jedis.impl;
 
 import com.example.apputils.redis.api.IRedisService;
 
