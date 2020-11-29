@@ -1,6 +1,8 @@
 package com.example.apputils.redis.jedis.impl;
 
 import com.example.apputils.redis.api.IRedisService;
+import org.springframework.beans.factory.annotation.Autowired;
+import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,6 +15,9 @@ import java.util.Set;
  * @date: 2020/11/27 16:43
  */
 public class JedisRedisServiceImpl implements IRedisService {
+    @Autowired
+    JedisPool jedisPool;
+
     @Override
     public long decr(String key) {
         return 0;

@@ -1,18 +1,24 @@
 package com.example.apputils.redis.spring.impl;
 
 import com.example.apputils.redis.api.IRedisService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @Description:
@@ -29,6 +35,8 @@ public class SpringRedisServiceImpl implements IRedisService, InitializingBean {
     @Autowired
     @Qualifier("cacheStringRedisTemplate")
     private StringRedisTemplate stringTemplate;
+
+    private ObjectMapper om = new ObjectMapper();
 
     public SpringRedisServiceImpl() {
     }
@@ -221,6 +229,7 @@ public class SpringRedisServiceImpl implements IRedisService, InitializingBean {
     public Long zremrangeByRank(String key, long start, long end) {
         return this.template.opsForZSet().removeRange(key, start, end);
     }
+
     @Override
     public Long zremrangeByScore(String key, Double start, Double end) {
         return this.template.opsForZSet().removeRangeByScore(key, start, end);
@@ -376,4 +385,61 @@ public class SpringRedisServiceImpl implements IRedisService, InitializingBean {
 //            }
 //        }
     }
+
+    private byte[] rawKey(String key) {
+        try {
+            return key.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private byte[] rawValue(Object value) {
+        try {
+            return value instanceof byte[] ? (byte[]) value : om.writeValueAsBytes(value);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("序列化失败！！！");
+        }
+    }
+
+    public void batchPutWithPipe(Map<String, Object> keyValues) {
+        template.executePipelined(new RedisCallback<Object>() {
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                keyValues.forEach((k, v) -> {
+                    connection.set(rawKey(k), rawValue(v));
+                });
+                return null;
+            }
+        });
+    }
+
+    public void batchAddWithPipe(Map<String, List<Object>> keyValues) {
+        template.executePipelined(new RedisCallback<Object>() {
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                keyValues.forEach((k, v) -> {
+                    List<byte[]> values = v.stream().map(t -> rawValue(t)).collect(Collectors.toList());
+                    connection.sAdd(rawKey(k), values.toArray(new byte[v.size()][]));
+                });
+                return null;
+            }
+        });
+    }
+
+    public List<Object> batchGetWithPipe(List<String> keys) {
+        List result = template.executePipelined(new RedisCallback<Object>() {
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                keys.forEach(k -> {
+                    connection.hGetAll(rawKey(k));
+                });
+                return null;
+            }
+        });
+        return  result;
+    }
+
+
 }
