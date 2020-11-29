@@ -31,3 +31,6 @@
     JedisCluster 需要自己根据key找到Jedis对象
         
 ### 2.0 Redis数据都是已Byte[] 形式存放    
+
+### ONS MQ
+    com.aliyun.openservices:ons-client:1.8.0.Final
