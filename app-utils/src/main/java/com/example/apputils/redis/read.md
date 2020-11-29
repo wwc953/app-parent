@@ -5,6 +5,7 @@
 ##CaffeineCache 2.6.2
 
 ##Redisson
+    分布式锁
     3.10.7
 
 ###Redis序列化
