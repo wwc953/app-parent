@@ -26,7 +26,8 @@ public class SyncCacheSchedule {
     @Value("${frame.cmccache.use.type:aa,bb,cc,dd}")
     private String type;
 
-    @Scheduled(initialDelay = 1000L, fixedDelay = 90000L)
+//    @Scheduled(initialDelay = 1000L, fixedDelay = 900000L)//15min 更新
+    @Scheduled(initialDelay = 1000L, fixedDelay = 15000L)//15min 更新
     private void task() {
         log.info("=== 刷新本地缓存定时任务开始: ===");
         List<String> typeList = Arrays.asList(type.split(","));
