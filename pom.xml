@@ -44,7 +44,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-<!--                <artifactId>spring-cloud-starter-parent</artifactId>-->
+                <!--                <artifactId>spring-cloud-starter-parent</artifactId>-->
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -57,16 +57,28 @@
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka_2.11</artifactId>
+                <version>2.4.1</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.typesafe.scala-logging</groupId>
+                        <artifactId>scala-logging-api_2.11</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
 
         <!-- Dubbo Spring Cloud Starter -->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-dubbo</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-dubbo</artifactId>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -90,7 +102,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-<!--            <scope>provided</scope>-->
+            <!--            <scope>provided</scope>-->
         </dependency>
 
         <!--Swagger2 - RESTful API文档-->
