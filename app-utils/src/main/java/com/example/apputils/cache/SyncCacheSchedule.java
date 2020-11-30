@@ -1,7 +1,6 @@
 package com.example.apputils.cache;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.deploy.security.ValidationState;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -21,6 +20,7 @@ import java.util.List;
 @EnableScheduling
 @ConditionalOnExpression("${frame.cmccache.use:true}")
 @Slf4j
+//https://www.cnblogs.com/jun1019/p/11367639.html springboot 实现自动刷新
 public class SyncCacheSchedule {
 
     @Value("${frame.cmccache.use.type:aa,bb,cc,dd}")
