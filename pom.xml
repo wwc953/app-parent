@@ -37,6 +37,7 @@
         <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
         <lombok.version>1.16.18</lombok.version>
         <swagger2.version>2.9.2</swagger2.version>
+        <caffeine.version>2.6.2</caffeine.version>
     </properties>
 
     <dependencyManagement>
@@ -67,6 +68,13 @@
                         <artifactId>scala-logging-api_2.11</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <!-- CaffeineCache 本地缓存 -->
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
             </dependency>
 
         </dependencies>
