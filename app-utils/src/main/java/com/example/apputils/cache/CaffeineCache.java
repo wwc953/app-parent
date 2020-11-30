@@ -48,6 +48,13 @@ public class CaffeineCache {
         return ((Map) value).get(item);
     }
 
+    /**
+     * 使用较多
+     *
+     * @param key
+     * @param item
+     * @param value
+     */
     public void hset(String key, String item, Object value) {
         Map map = (Map) cache.getIfPresent(key);
         if (map != null && map.size() > 0) {
@@ -59,12 +66,27 @@ public class CaffeineCache {
         }
     }
 
+    /**
+     * 使用较多
+     *
+     * @param key
+     * @param inputMap
+     */
     public void hset(String key, Map<String, Object> inputMap) {
         Map map = (Map) cache.getIfPresent(key);
         if (map != null && map.size() > 0) {
             map.putAll(inputMap);
         } else {
             cache.put(key, inputMap);
+        }
+    }
+
+    public void hdel(String key, String[] items) {
+        if (items == null || items.length == 0)
+            return;
+        Map map = (Map) cache.getIfPresent(key);
+        for (int i = 0; i < items.length; i++) {
+            map.remove(items[i]);
         }
     }
 
