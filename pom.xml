@@ -125,6 +125,10 @@
             <version>${swagger2.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+        </dependency>
 
     </dependencies>
 
